@@ -1,7 +1,7 @@
 {
   "_commit_hash": null,
   "architectures": [
-    "SamForImageSegmentation"
+    "SamForMaskGeneration"
   ],
   "initializer_factor": 1.0,
   "initializer_range": 0.02,
@@ -39,6 +39,7 @@
       "LABEL_0": 0,
       "LABEL_1": 1
     },
+    "layer_norm_eps": 1e-06,
     "length_penalty": 1.0,
     "max_length": 20,
     "min_length": 0,
@@ -74,7 +75,7 @@
     "top_p": 1.0,
     "torch_dtype": null,
     "torchscript": false,
-    "transformers_version": "4.28.0.dev0",
+    "transformers_version": "4.29.0.dev0",
     "typical_p": 1.0,
     "use_bfloat16": false
   },
@@ -146,11 +147,11 @@
     "top_p": 1.0,
     "torch_dtype": null,
     "torchscript": false,
-    "transformers_version": "4.28.0.dev0",
+    "transformers_version": "4.29.0.dev0",
     "typical_p": 1.0,
     "use_bfloat16": false
   },
-  "torch_dtype": "float16",
+  "torch_dtype": "float32",
   "transformers_version": null,
   "vision_config": {
     "_name_or_path": "",
@@ -195,10 +196,11 @@
       "LABEL_0": 0,
       "LABEL_1": 1
     },
-    "layer_norm_eps": 1e-05,
+    "layer_norm_eps": 1e-06,
     "length_penalty": 1.0,
     "max_length": 20,
     "min_length": 0,
+    "mlp_dim": 5120,
     "mlp_ratio": 4.0,
     "model_type": "sam_vision_model",
     "no_repeat_ngram_size": 0,
@@ -207,6 +209,7 @@
     "num_beams": 1,
     "num_channels": 3,
     "num_hidden_layers": 32,
+    "num_pos_feats": 128,
     "num_return_sequences": 1,
     "output_attentions": false,
     "output_channels": 256,
@@ -236,7 +239,7 @@
     "top_p": 1.0,
     "torch_dtype": null,
     "torchscript": false,
-    "transformers_version": "4.28.0.dev0",
+    "transformers_version": "4.29.0.dev0",
     "typical_p": 1.0,
     "use_abs_pos": true,
     "use_bfloat16": false,
