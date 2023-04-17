@@ -1,0 +1,34 @@
+{
+  "amg_box_nms_thresh": 0.7,
+  "amg_pred_iou_thresh": 0.88,
+  "amg_stability_score_offset": 1.0,
+  "amg_stability_score_thresh": 0.95,
+  "do_convert_rgb": true,
+  "do_normalize": true,
+  "do_rescale": true,
+  "do_resize": true,
+  "image_mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "image_processor_type": "SamImageProcessor",
+  "image_std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "mask_threshold": 0.0,
+  "n_layers": 0,
+  "overlap_ratio": 0.3413333333333333,
+  "points_per_crop": 32,
+  "processor_class": "SamProcessor",
+  "resample": 3,
+  "rescale_factor": 0.00392156862745098,
+  "scale_per_layer": 1,
+  "size": {
+    "height": 384,
+    "width": 384
+  },
+  "target_size": 1024
+}
