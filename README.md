@@ -19,17 +19,13 @@ license: apache-2.0
 
 # TL;DR
 
-<div class="row">
-  <div class="column">
-	<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/sam-beans.png" alt="Nice example" style="max-width: 20%;">
-  </div>
-  <div class="column">
-    <img src="https://s3.amazonaws.com/moonup/production/uploads/62441d1d9fdefb55a0b7d12c/wHXbJx1oXqHCYNeUNKHs8.png" alt="Nice example 2" style="max-width: 20%;">
-  </div>
-  <div class="column">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/model_doc/sam-car-seg.png" alt="Nice example 3" style="max-width: 20%;">
-  </div>
-</div>
+
+<p float="left">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/sam-beans.png" width="33.33%" />
+  <img src="https://s3.amazonaws.com/moonup/production/uploads/62441d1d9fdefb55a0b7d12c/wHXbJx1oXqHCYNeUNKHs8.png" width="33.33%" /> 
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/model_doc/sam-car-seg.png" width="33.33%" /> 
+</p>
+
 
 
 [Link to original repository](https://github.com/facebookresearch/segment-anything)
