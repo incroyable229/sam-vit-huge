@@ -48,8 +48,8 @@ The SAM model is made up of 3 modules:
 ```python
 >>> from PIL import Image
 >>> import requests
->>> from transformers import SamModelForMaskedGeneration, SamProcessor
->>> model = SamModelForMaskedGeneration.from_pretrained("facebook/sam-vit-huge")
+>>> from transformers import SamModel, SamProcessor
+>>> model = SamModel.from_pretrained("facebook/sam-vit-huge")
 >>> processsor = SamProcessor.from_pretrained("facebook/sam-vit-huge")
 
 >>> img_url = "https://huggingface.co/ybelkada/segment-anything/resolve/main/assets/car.png"
