@@ -2,7 +2,7 @@
 license: apache-2.0
 ---
 
-# Model Card for Segment Anything Model (SAM)
+# Model Card for Segment Anything Model (SAM) - ViT Huge (ViT-H) version
 
 <p>
 	<img src="https://s3.amazonaws.com/moonup/production/uploads/62441d1d9fdefb55a0b7d12c/F1LWM9MXjHJsiAtgBFpDP.png" alt="Model architecture">
