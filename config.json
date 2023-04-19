@@ -3,7 +3,6 @@
   "architectures": [
     "SamForMaskGeneration"
   ],
-  "initializer_factor": 1.0,
   "initializer_range": 0.02,
   "mask_decoder_config": {
     "_name_or_path": "",
@@ -106,13 +105,14 @@
       "1": "LABEL_1"
     },
     "image_embedding_size": 64,
-    "input_image_size": 1024,
+    "image_size": 1024,
     "is_decoder": false,
     "is_encoder_decoder": false,
     "label2id": {
       "LABEL_0": 0,
       "LABEL_1": 1
     },
+    "layer_norm_eps": 1e-06,
     "length_penalty": 1.0,
     "mask_input_channels": 16,
     "max_length": 20,
@@ -202,7 +202,7 @@
     "min_length": 0,
     "mlp_dim": 5120,
     "mlp_ratio": 4.0,
-    "model_type": "sam_vision_model",
+    "model_type": "",
     "no_repeat_ngram_size": 0,
     "num_attention_heads": 16,
     "num_beam_groups": 1,
@@ -222,7 +222,6 @@
     "projection_dim": 512,
     "pruned_heads": {},
     "qkv_bias": true,
-    "rel_pos_zero_init": false,
     "remove_invalid_values": false,
     "repetition_penalty": 1.0,
     "return_dict": true,
