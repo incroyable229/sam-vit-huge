@@ -6,7 +6,7 @@ license: apache-2.0
 
 <p>
 	<img src="https://s3.amazonaws.com/moonup/production/uploads/62441d1d9fdefb55a0b7d12c/F1LWM9MXjHJsiAtgBFpDP.png" alt="Model architecture">
-	<em>Detailed architecture of Segment Anything Model (SAM).</em>
+	<em> Detailed architecture of Segment Anything Model (SAM).</em>
 </p>
 
 
@@ -35,12 +35,75 @@ The abstract of the paper states:
 
 # Model Details
 
-
-
+The SAM model is made up of 3 modules:
+  - The `VisionEncoder`: a VIT based image encoder. It computes the image embeddings using attention on patches of the image. Relative Positional Embedding is used.
+  - The `PromptEncoder`: generates embeddings for points and bounding boxes
+  - The `MaskDecoder`: a two-ways transformer which performs cross attention between the image embedding and the point embeddings (->) and between the point embeddings and the image embeddings. The outputs are fed
+  - The `Neck`: predicts the output masks based on the contextualized masks produced by the `MaskDecoder`.
 # Usage
 
-The model can be used for generating segmentation masks in a "zero-shot" fashion, given an input image and additional inputs that are recommended. 
+
+## Prompted-Mask-Generation
+
+```python
+>>> from PIL import Image
+>>> import requests
+>>> from transformers import SamModelForMaskedGeneration, SamProcessor
+>>> model = SamModelForMaskedGeneration.from_pretrained("facebook/sam-vit-huge")
+>>> processsor = SamProcessor.from_pretrained("facebook/sam-vit-huge")
+
+>>> img_url = "https://huggingface.co/ybelkada/segment-anything/resolve/main/assets/car.png"
+>>> raw_image = Image.open(requests.get(img_url, stream=True).raw).convert("RGB")
+>>> input_points = [[[450, 600]]]
+```
+
+
+```python
+>>> inputs = processor(raw_image, input_points=input_points, return_tensors="pt").to(device)
+>>> outputs = model(**inputs)
+>>> masks = processor.image_processor.post_process_masks(outputs.pred_masks.cpu(), inputs["original_sizes"].cpu(), inputs["reshaped_input_sizes"].cpu())
+>>> scores = outputs.iou_scores
+```
 Among other arguments to generate masks, you can pass 2D locations on the approximate position of your object of interest, a bounding box wrapping the object of interest (the format should be x, y coordinate of the top right and bottom left point of the bounding box), a segmentation mask. At this time of writing, passing a text as input is not supported by the official model according to [the official repository](https://github.com/facebookresearch/segment-anything/issues/4#issuecomment-1497626844).
+For more details, refer to this notebook, which shows a walk throught of how to use the model, with a visual example! 
+
+## Automatic-Mask-Generation
+
+The model can be used for generating segmentation masks in a "zero-shot" fashion, given an input image. The model is automatically prompt with a grid of `1024` points
+which are all fed to the model. 
+
+The pipeline is made for automatic mask generation. The following snippet demonstrates how easy you can run it (on any device! Simply feed the appropriate `points_per_batch` argument)
+```python
+from transformers import pipeline
+generator =  pipeline("automatic-mask-generation", device = 0, points_per_batch = 256)
+image_url = "https://huggingface.co/ybelkada/segment-anything/resolve/main/assets/car.png"
+outputs = generator(image_url, points_per_batch = 256)
+```
+Now to display the image: 
+```python
+import matplotlib.pyplot as plt
+from PIL import Image
+import numpy as np
+
+def show_mask(mask, ax, random_color=False):
+    if random_color:
+        color = np.concatenate([np.random.random(3), np.array([0.6])], axis=0)
+    else:
+        color = np.array([30 / 255, 144 / 255, 255 / 255, 0.6])
+    h, w = mask.shape[-2:]
+    mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1)
+    ax.imshow(mask_image)
+    
+
+plt.imshow(np.array(raw_image))
+ax = plt.gca()
+for mask in outputs["masks"]:
+    show_mask(mask, ax=ax, random_color=True)
+plt.axis("off")
+plt.show()
+```
+This should give you the following ![car_mask_results](https://user-images.githubusercontent.com/48595927/233065719-abb53407-8693-4203-8323-63fbb6321615.png)
+
 
 
 # Citation
