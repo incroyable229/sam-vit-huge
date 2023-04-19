@@ -46,23 +46,24 @@ The SAM model is made up of 3 modules:
 ## Prompted-Mask-Generation
 
 ```python
->>> from PIL import Image
->>> import requests
->>> from transformers import SamModel, SamProcessor
->>> model = SamModel.from_pretrained("facebook/sam-vit-huge")
->>> processsor = SamProcessor.from_pretrained("facebook/sam-vit-huge")
+from PIL import Image
+import requests
+from transformers import SamModel, SamProcessor
 
->>> img_url = "https://huggingface.co/ybelkada/segment-anything/resolve/main/assets/car.png"
->>> raw_image = Image.open(requests.get(img_url, stream=True).raw).convert("RGB")
->>> input_points = [[[450, 600]]]
+model = SamModel.from_pretrained("facebook/sam-vit-huge")
+processsor = SamProcessor.from_pretrained("facebook/sam-vit-huge")
+
+img_url = "https://huggingface.co/ybelkada/segment-anything/resolve/main/assets/car.png"
+raw_image = Image.open(requests.get(img_url, stream=True).raw).convert("RGB")
+input_points = [[[450, 600]]] # 2D localization of a window
 ```
 
 
 ```python
->>> inputs = processor(raw_image, input_points=input_points, return_tensors="pt").to(device)
->>> outputs = model(**inputs)
->>> masks = processor.image_processor.post_process_masks(outputs.pred_masks.cpu(), inputs["original_sizes"].cpu(), inputs["reshaped_input_sizes"].cpu())
->>> scores = outputs.iou_scores
+inputs = processor(raw_image, input_points=input_points, return_tensors="pt").to(device)
+outputs = model(**inputs)
+masks = processor.image_processor.post_process_masks(outputs.pred_masks.cpu(), inputs["original_sizes"].cpu(), inputs["reshaped_input_sizes"].cpu())
+scores = outputs.iou_scores
 ```
 Among other arguments to generate masks, you can pass 2D locations on the approximate position of your object of interest, a bounding box wrapping the object of interest (the format should be x, y coordinate of the top right and bottom left point of the bounding box), a segmentation mask. At this time of writing, passing a text as input is not supported by the official model according to [the official repository](https://github.com/facebookresearch/segment-anything/issues/4#issuecomment-1497626844).
 For more details, refer to this notebook, which shows a walk throught of how to use the model, with a visual example! 
