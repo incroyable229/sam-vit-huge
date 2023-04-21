@@ -51,7 +51,7 @@ import requests
 from transformers import SamModel, SamProcessor
 
 model = SamModel.from_pretrained("facebook/sam-vit-huge")
-processsor = SamProcessor.from_pretrained("facebook/sam-vit-huge")
+processor = SamProcessor.from_pretrained("facebook/sam-vit-huge")
 
 img_url = "https://huggingface.co/ybelkada/segment-anything/resolve/main/assets/car.png"
 raw_image = Image.open(requests.get(img_url, stream=True).raw).convert("RGB")
@@ -60,7 +60,7 @@ input_points = [[[450, 600]]] # 2D localization of a window
 
 
 ```python
-inputs = processor(raw_image, input_points=input_points, return_tensors="pt").to(device)
+inputs = processor(raw_image, input_points=input_points, return_tensors="pt").to("cuda")
 outputs = model(**inputs)
 masks = processor.image_processor.post_process_masks(outputs.pred_masks.cpu(), inputs["original_sizes"].cpu(), inputs["reshaped_input_sizes"].cpu())
 scores = outputs.iou_scores
@@ -76,7 +76,7 @@ which are all fed to the model.
 The pipeline is made for automatic mask generation. The following snippet demonstrates how easy you can run it (on any device! Simply feed the appropriate `points_per_batch` argument)
 ```python
 from transformers import pipeline
-generator =  pipeline("automatic-mask-generation", device = 0, points_per_batch = 256)
+generator =  pipeline("mask-generation", device = 0, points_per_batch = 256)
 image_url = "https://huggingface.co/ybelkada/segment-anything/resolve/main/assets/car.png"
 outputs = generator(image_url, points_per_batch = 256)
 ```
