@@ -1,7 +1,7 @@
 {
   "_commit_hash": null,
   "architectures": [
-    "SamForMaskGeneration"
+    "SamModel"
   ],
   "initializer_range": 0.02,
   "mask_decoder_config": {
