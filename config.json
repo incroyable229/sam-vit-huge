@@ -1,5 +1,6 @@
 {
   "_commit_hash": null,
+  "_name_or_path": "/tmp/facebook/sam-vit-huge",
   "architectures": [
     "SamModel"
   ],
