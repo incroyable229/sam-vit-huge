@@ -5,7 +5,7 @@ license: apache-2.0
 # Model Card for Segment Anything Model (SAM) - ViT Huge (ViT-H) version
 
 <p>
-	<img src="https://s3.amazonaws.com/moonup/production/uploads/62441d1d9fdefb55a0b7d12c/F1LWM9MXjHJsiAtgBFpDP.png" alt="Model architecture">
+	<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/model_doc/sam-architecture.png" alt="Model architecture">
 	<em> Detailed architecture of Segment Anything Model (SAM).</em>
 </p>
 
