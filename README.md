@@ -1,5 +1,7 @@
 ---
 license: apache-2.0
+tags:
+- vision
 ---
 
 # Model Card for Segment Anything Model (SAM) - ViT Huge (ViT-H) version
